@@ -18,4 +18,4 @@ The Main deployment is in folder: **Nginx-Redis-MySQL**
 
 The Monitoring and Alerting Deployment is in folder: **Monitoring**
 
-Wasn't able to deploy and test in AWS due to unavailability.
+**Note:** Wasn't able to deploy and test in AWS due to unavailability.

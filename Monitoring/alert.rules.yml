@@ -1,0 +1,44 @@
+groups:
+- name: alert.rules
+  rules:
+  - alert: EndpointDown         # Rule number 1
+    expr: probe_success == 0
+    for: 10s
+    labels:
+      severity: "Critical"
+    annotations:
+      Title: "Endpoint is down"
+      Summary: "Endpoint {{ $labels.instance }} is down"
+      host: "{{$labels.instance}}"
+
+  # Node memory is filling up (< 15% left)
+  - alert: Out Of Memory          # Rule number 2
+    expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 > 85
+    for: 1m
+    labels:
+      Severity: Warning
+    annotations:
+      Title: "Memory Usage Alert"
+      Summary: "Out of memory, Node IP = {{ $labels.instance }})"
+      Description: "Node memory is above 85%, Current Memory Usage is = {{ $value }}\n"  
+      #host: "{{$labels.instance}}"
+
+  - alert: Out of Disk Space
+    expr: (node_filesystem_avail_bytes{mountpoint="/"}  * 100) / node_filesystem_size_bytes{mountpoint="/"} < 15
+    for: 1m
+    labels:
+      Severity: Warning
+    annotations:
+      Title: "DiskSpace Alert"
+      Summary: "Host is out of disk space, Instance IP - {{ $labels.instance }}"
+      Description: "Disk is almost full, Free Space Available is = {{ $value }} %"
+
+  - alert: High CPU Load
+    expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+    for: 5m
+    labels:
+      Severity: warning
+    annotations:
+      Summary: "Host high CPU load (instance {{ $labels.instance }})"
+      Description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      Host: "{{$labels.instance}}"

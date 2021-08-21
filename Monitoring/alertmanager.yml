@@ -1,0 +1,18 @@
+global:
+templates:
+- '/etc/alertmanager/*.tmpl'
+route:
+  receiver: alert-emailer
+  group_by: [alertname, instance]
+  repeat_interval: 36h
+receivers:
+- name: alert-emailer
+  email_configs:
+  - to: 'sahaj.shah@ecosmob.com'
+    send_resolved: false
+    from: 'sahaj@zohomail.com'
+    smarthost: 'smtp.zoho.com:587'
+    auth_username: 'sahaj@zohomail.com'
+    auth_password: 'sahaj@123'
+    auth_secret: 'sahaj@zohomail.com'
+    auth_identity: 'sahaj@zohomail.com'

@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  nginxredis:
+    image: nginxredis:v1
+    container_name: nginxredis
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "6379:6379"
+
+  mysqldb:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Sahaj@123
+      MYSQL_DATABASE:
+    ports:
+      - "3306:3306"
+    volumes:
+            - mysql:/var/lib/mysql
+            - mysql_config:/etc/mysql

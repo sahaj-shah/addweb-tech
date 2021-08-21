@@ -19,3 +19,11 @@ grafana:
     restart: unless-stopped
     expose:
       - "3000:3000"
+      
+alerting:
+    image: quay.io/prometheus/alertmanager
+    expose:
+      - "9093:9093"
+    volumes:
+      - alert.rules.yml:/etc/prometheus/alert.rules.yml
+      - alertmanager.yml:/etc/alertmanager/alertmanager.yml

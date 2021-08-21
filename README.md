@@ -11,3 +11,11 @@ nginx.
 
 4) Deploy these containers to any of the Cloud (Azure or AWS) and provide the access of Application.
 endpoint, Metrics server dashboard and Dockerfiles that you have prepared.
+
+Solution:
+
+The Main deployment is in folder: **Nginx-Redis-MySQL**
+
+The Monitoring and Alerting Deployment is in folder: **Monitoring**
+
+Wasn't able to deploy and test in AWS due to unavailability.
